@@ -6,6 +6,7 @@ namespace Player {
         [SerializeField, Range(0f, 5f)] private float jumpHeight = 1.0f;
         [SerializeField, Range(0f, 5f)] private float playerSpeed = 2.0f;
         [SerializeField, Range(0f, 5f)] private float rayCastLength = 1f;
+        [SerializeField, Range(0f, 1f)] private float maxTimeFromJumpTriggerTillContact;
         [SerializeField] private InputManager inputManager;
 
         private readonly float _gravityValue = Physics.gravity.y;
@@ -16,17 +17,20 @@ namespace Player {
         private Vector3 _playerCurrentVelocity;
         private bool _isPlayerGrounded = true;
 
+        private bool _shouldJump;
+        private float _timeSinceLastJumpButtonPress;
+
         private void OnEnable() {
             SetUpReferences();
-        }
-
-        private void Start() {
-            Cursor.visible = false;
         }
 
         private void SetUpReferences() {
             _controller = GetComponent<CharacterController>();
             ManageCameraReference();
+        }
+
+        private void Start() {
+            Cursor.visible = false;
         }
 
         private void ManageCameraReference() {
@@ -49,34 +53,49 @@ namespace Player {
 
         private void HandleHorizontalMovement() {
             Vector2 keyboardInput = inputManager.GetPlayerMovement();
-            Vector3 move = new Vector3(keyboardInput.x, 0f, keyboardInput.y);
+            Vector3 keyboardToWorld = new Vector3(keyboardInput.x, 0f, keyboardInput.y);
 
-            move = _cameraTransform.forward * move.z + _cameraTransform.right * move.x;
-            move.y = 0;
-            move = move.normalized;
-            move *= playerSpeed;
+            Vector3 displacementVector = _cameraTransform.forward * keyboardToWorld.z +
+                                         _cameraTransform.right * keyboardToWorld.x;
+            displacementVector.y = 0;
+            displacementVector.Normalize();
+            displacementVector *= playerSpeed;
 
-            _controller.Move(move * Time.deltaTime);
+            _controller.Move(displacementVector * Time.deltaTime);
         }
 
         private void HandleVerticalMovement() {
-            _isPlayerGrounded = _controller.isGrounded;
+            CheckIfPlayerStaysOnGround();
+
             if (_isPlayerGrounded && _playerCurrentVelocity.y < 0) {
                 _playerCurrentVelocity.y = 0f;
             }
 
-            Jump();
+            EvaluateJumpIntention();
+            if (_shouldJump) {
+                Jump();
+            }
 
             _playerCurrentVelocity.y += _gravityValue * Time.deltaTime;
             _controller.Move(_playerCurrentVelocity * Time.deltaTime);
         }
 
-        private void Jump() {
-            float distanceToGround = _controller.bounds.extents.y;
+        private void CheckIfPlayerStaysOnGround() {
             Ray ray = new Ray(transform.position, Vector3.down);
-            if (inputManager.WasJumpTriggered() && Physics.Raycast(ray, out _, distanceToGround + rayCastLength)) {
-                _playerCurrentVelocity.y += Mathf.Sqrt(-2f * jumpHeight * _gravityValue);
-            }
+            _isPlayerGrounded = Physics.Raycast(ray, out _, _controller.bounds.extents.y + rayCastLength);
+        }
+
+        private void EvaluateJumpIntention() {
+            _shouldJump |= inputManager.WasJumpTriggered();
+            _timeSinceLastJumpButtonPress += Time.deltaTime;
+
+            if (!(_timeSinceLastJumpButtonPress >= maxTimeFromJumpTriggerTillContact) || _isPlayerGrounded) return;
+            _shouldJump = false;
+            _timeSinceLastJumpButtonPress = 0f;
+        }
+
+        private void Jump() {
+            _playerCurrentVelocity.y += Mathf.Sqrt(-2f * jumpHeight * _gravityValue);
         }
     }
 }
