@@ -43,6 +43,14 @@ namespace Player
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""f14b2f41-775a-4044-9579-64ba6d1fe76b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -122,6 +130,17 @@ namespace Player
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2fe57c77-2975-47cd-b826-fee2f782a9ab"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -133,6 +152,7 @@ namespace Player
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+            m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -185,6 +205,7 @@ namespace Player
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Jump;
+        private readonly InputAction m_Player_Shoot;
         public struct PlayerActions
         {
             private @PlayerControls m_Wrapper;
@@ -192,6 +213,7 @@ namespace Player
             public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
+            public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -210,6 +232,9 @@ namespace Player
                     @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                     @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                     @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                    @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                    @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                    @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -223,6 +248,9 @@ namespace Player
                     @Jump.started += instance.OnJump;
                     @Jump.performed += instance.OnJump;
                     @Jump.canceled += instance.OnJump;
+                    @Shoot.started += instance.OnShoot;
+                    @Shoot.performed += instance.OnShoot;
+                    @Shoot.canceled += instance.OnShoot;
                 }
             }
         }
@@ -232,6 +260,7 @@ namespace Player
             void OnLook(InputAction.CallbackContext context);
             void OnMove(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
+            void OnShoot(InputAction.CallbackContext context);
         }
     }
 }

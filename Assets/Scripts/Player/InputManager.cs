@@ -23,5 +23,9 @@ namespace Player {
         public bool WasJumpTriggered() {
             return _playerControls.Player.Jump.triggered;
         }
+
+        public bool WasFireTriggered() {
+            return _playerControls.Player.Shoot.triggered;
+        }
     }
 }
