@@ -1,11 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Player {
     public class InputManager : MonoBehaviour {
         private PlayerControls _playerControls;
 
+        public event Action ONShootTriggered;
+        public event Action ONJumpTriggered;
+
         private void Awake() {
             _playerControls = new PlayerControls();
+
+            SetEventCallbacks();
+        }
+
+        private void SetEventCallbacks() {
+            _playerControls.Player.Shoot.performed += OnPlayerControlsPlayerShootTriggered;
+            _playerControls.Player.Jump.performed += OnPlayerControlsPlayerJumpTriggered;
         }
 
         private void OnEnable() {
@@ -27,5 +39,15 @@ namespace Player {
         public bool WasFireTriggered() {
             return _playerControls.Player.Shoot.triggered;
         }
+
+        private void OnPlayerControlsPlayerShootTriggered(InputAction.CallbackContext callbackContext) {
+            ONShootTriggered?.Invoke();
+        }
+
+        private void OnPlayerControlsPlayerJumpTriggered(InputAction.CallbackContext callbackContext) {
+            ONJumpTriggered?.Invoke();
+        }
+        
+        
     }
 }

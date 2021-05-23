@@ -1,4 +1,5 @@
 using UnityEngine;
+using Grid = Systems.Grid;
 
 namespace Player {
     [RequireComponent(typeof(CharacterController))]
@@ -6,8 +7,6 @@ namespace Player {
         [SerializeField, Range(0f, 5f)] private float jumpHeight = 1.0f;
         [SerializeField, Range(0f, 5f)] private float playerSpeed = 2.0f;
         [SerializeField, Range(0f, 5f)] private float rayCastLength = 1f;
-        [SerializeField, Range(0f, 1f)] private float maxTimeFromJumpTriggerTillContact;
-        [SerializeField] private InputManager inputManager;
 
         private readonly float _gravityValue = Physics.gravity.y;
 
@@ -17,21 +16,15 @@ namespace Player {
         private Vector3 _playerCurrentVelocity;
         private bool _isPlayerGrounded = true;
 
-        private bool _shouldJump;
-        private float _timeSinceLastJumpButtonPress;
 
         private void OnEnable() {
             SetUpReferences();
+            Grid.InputManager.ONJumpTriggered += JumpAction;
         }
 
         private void SetUpReferences() {
             _controller = GetComponent<CharacterController>();
             ManageCameraReference();
-        }
-
-        private void Start() {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void ManageCameraReference() {
@@ -41,6 +34,21 @@ namespace Player {
             else {
                 Debug.LogError("Main Camera component does not exit!");
             }
+        }
+
+        private void JumpAction() {
+            if (_isPlayerGrounded) {
+                Jump();
+            }
+        }
+
+        private void Jump() {
+            _playerCurrentVelocity.y += Mathf.Sqrt(-2f * jumpHeight * _gravityValue);
+        }
+
+        private void Start() {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void Update() {
@@ -53,7 +61,7 @@ namespace Player {
         }
 
         private void HandleHorizontalMovement() {
-            Vector2 keyboardInput = inputManager.GetPlayerMovement();
+            Vector2 keyboardInput = Grid.InputManager.GetPlayerMovement();
             Vector3 keyboardToWorld = new Vector3(keyboardInput.x, 0f, keyboardInput.y);
 
             Vector3 displacementVector = _cameraTransform.forward * keyboardToWorld.z +
@@ -72,11 +80,6 @@ namespace Player {
                 _playerCurrentVelocity.y = 0f;
             }
 
-            EvaluateJumpIntention();
-            if (_shouldJump) {
-                Jump();
-            }
-
             _playerCurrentVelocity.y += _gravityValue * Time.deltaTime;
             _controller.Move(_playerCurrentVelocity * Time.deltaTime);
         }
@@ -84,19 +87,6 @@ namespace Player {
         private void CheckIfPlayerStaysOnGround() {
             Ray ray = new Ray(transform.position, Vector3.down);
             _isPlayerGrounded = Physics.Raycast(ray, out _, _controller.bounds.extents.y + rayCastLength);
-        }
-
-        private void EvaluateJumpIntention() {
-            _shouldJump |= inputManager.WasJumpTriggered();
-            _timeSinceLastJumpButtonPress += Time.deltaTime;
-
-            if (!(_timeSinceLastJumpButtonPress >= maxTimeFromJumpTriggerTillContact) || _isPlayerGrounded) return;
-            _shouldJump = false;
-            _timeSinceLastJumpButtonPress = 0f;
-        }
-
-        private void Jump() {
-            _playerCurrentVelocity.y += Mathf.Sqrt(-2f * jumpHeight * _gravityValue);
         }
     }
 }

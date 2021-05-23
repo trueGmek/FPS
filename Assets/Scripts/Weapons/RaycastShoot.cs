@@ -3,6 +3,7 @@ using System.Collections;
 using System.Net;
 using Player;
 using UnityEngine;
+using Grid = Systems.Grid;
 
 namespace Weapons {
     public class RaycastShoot : MonoBehaviour {
@@ -14,8 +15,6 @@ namespace Weapons {
 
         public Transform gunEnd;
 
-        public InputManager inputManager; //TODO:REMOVE THE COMPONENT TO _preload SCENE AND REFERENCE THIS FROM THERE
-
         private Camera _fpsCamera;
         private WaitForSeconds _shootDuration = new WaitForSeconds(0.07f);
         private AudioSource _gunAudio;
@@ -23,13 +22,15 @@ namespace Weapons {
         private float _nextFire;
 
         private void Start() {
+            Grid.InputManager.ONShootTriggered += ShootAction;
+
             _laserLine = GetComponent<LineRenderer>();
             _gunAudio = GetComponent<AudioSource>();
             _fpsCamera = Camera.main;
         }
 
-        private void Update() {
-            if (inputManager.WasFireTriggered() && Time.time > _nextFire) {
+        private void ShootAction() {
+            if (Time.time > _nextFire) {
                 _nextFire = Time.time + fireRate;
                 StartCoroutine(ShotEffect());
                 Vector3 rayOrigin = _fpsCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
