@@ -3,20 +3,10 @@ using UnityEngine;
 
 namespace Weapons {
     public class Shootable : MonoBehaviour {
-        public int currentHealth = 3;
+        public event Action<HitData> OnHit;
 
-        private Rigidbody _rigidbody;
-
-        private void Start() {
-            _rigidbody = GetComponent<Rigidbody>();
-        }
-
-
-        public void ApplyDamage(int damageAmount) {
-            currentHealth -= damageAmount;
-            if (currentHealth <= 0) {
-                gameObject.SetActive(false);
-            }
+        public void Hit(HitData hitData) {
+            OnHit?.Invoke(hitData);
         }
     }
 }
