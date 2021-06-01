@@ -9,6 +9,8 @@ namespace Player {
         public event Action ONShootTriggered;
         public event Action ONJumpTriggered;
 
+        public event Action ONInteractTriggered;
+
         private void Awake() {
             _playerControls = new PlayerControls();
 
@@ -18,6 +20,7 @@ namespace Player {
         private void SetEventCallbacks() {
             _playerControls.Player.Shoot.performed += OnPlayerControlsPlayerShootTriggered;
             _playerControls.Player.Jump.performed += OnPlayerControlsPlayerJumpTriggered;
+            _playerControls.Player.Interact.performed += OnPlayerControlsPlayerInteractTriggered;
         }
 
         private void OnEnable() {
@@ -47,7 +50,9 @@ namespace Player {
         private void OnPlayerControlsPlayerJumpTriggered(InputAction.CallbackContext callbackContext) {
             ONJumpTriggered?.Invoke();
         }
-        
-        
+
+        private void OnPlayerControlsPlayerInteractTriggered(InputAction.CallbackContext callbackContext) {
+            ONInteractTriggered?.Invoke();
+        }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
-using Grid = Systems.Grid;
 
 namespace Weapons {
-    [RequireComponent(typeof(Gun))]
     public class RaycastShoot : MonoBehaviour {
         public float shootDuration;
 
@@ -13,32 +11,28 @@ namespace Weapons {
         private WaitForSeconds _shootDuration;
         private AudioSource _gunAudio;
         private LineRenderer _laserLine;
-        private Gun _gun;
-
-        private void Awake() {
-            Grid.InputManager.ONShootTriggered += ShootAction;
-        }
+        private Pistol _pistol;
 
         private void Start() {
             _laserLine = GetComponent<LineRenderer>();
             _gunAudio = GetComponent<AudioSource>();
-            _gun = GetComponent<Gun>();
+            _pistol = GetComponent<Pistol>();
 
 
             _mainCamera = Camera.main;
             _shootDuration = new WaitForSeconds(shootDuration);
         }
 
-        private void ShootAction() {
+        public void ShootAction() {
             if (Time.time > _nextFireTime) {
-                _nextFireTime = Time.time + _gun.fireRate;
+                _nextFireTime = Time.time + _pistol.fireRate;
 
                 StartCoroutine(ShotEffects());
 
                 Vector3 middleOfTheScreen = new Vector3(0.5f, 0.5f, 0.5f);
                 Vector3 rayOrigin = _mainCamera.ViewportToWorldPoint(middleOfTheScreen);
 
-                if (Physics.Raycast(rayOrigin, _mainCamera.transform.forward, out var hit, _gun.weaponRange)) {
+                if (Physics.Raycast(rayOrigin, _mainCamera.transform.forward, out var hit, _pistol.weaponRange)) {
                     EvokeOnHitEvents(hit);
                     SetLaserPositionOnHit(hit);
                     return;
@@ -51,17 +45,17 @@ namespace Weapons {
         private void EvokeOnHitEvents(RaycastHit hit) {
             Shootable shootableObject = hit.collider.GetComponent<Shootable>();
             if (shootableObject != null) {
-                shootableObject.Hit(new HitData(hit.normal, _gun.hitForce, _gun.damage));
+                shootableObject.Hit(new HitData(_mainCamera.transform.forward, _pistol.hitForce, _pistol.damage));
             }
         }
 
         private void SetLaserPositionsOnMiss() {
-            _laserLine.SetPosition(0, _gun.gunEnd.position);
-            _laserLine.SetPosition(1, _mainCamera.transform.forward * _gun.weaponRange);
+            _laserLine.SetPosition(0, _pistol.GunEnd.position);
+            _laserLine.SetPosition(1, _mainCamera.transform.forward * _pistol.weaponRange);
         }
 
         private void SetLaserPositionOnHit(RaycastHit hit) {
-            _laserLine.SetPosition(0, _gun.gunEnd.position);
+            _laserLine.SetPosition(0, _pistol.GunEnd.position);
             _laserLine.SetPosition(1, hit.point);
         }
 

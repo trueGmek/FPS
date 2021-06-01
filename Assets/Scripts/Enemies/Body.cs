@@ -31,7 +31,7 @@ namespace Enemies {
         }
 
         private void ApplyForce(HitData hitData) {
-            _rigidbody.AddForce(-hitData.HitNormal * hitData.HitForce);
+            _rigidbody.AddForce(hitData.HitNormal * hitData.HitForce);
         }
     }
 }
