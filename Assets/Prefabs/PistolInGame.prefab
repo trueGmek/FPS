@@ -63,9 +63,8 @@ MonoBehaviour:
   fireRate: 0.25
   weaponRange: 50
   hitForce: 500
-  gunEnd: {fileID: 0}
   pistolPosition: {x: 0.3439999, y: -0.268, z: 0.7809999}
-  pistolGameObject: {fileID: 1347901682671290, guid: b017a00e018b1bc4f9ef2a84e5644a92, type: 3}
+  pistolGameObject: {fileID: 3604149481406280879, guid: 66100ca8a672c454aa5d299805c1c881, type: 3}
 --- !u!120 &4748314781192188315
 LineRenderer:
   m_ObjectHideFlags: 0
