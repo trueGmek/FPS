@@ -5,10 +5,14 @@ using Grid = Systems.Grid;
 
 namespace Player {
     public class HoldableManager : MonoBehaviour {
-        public IHoldable CurrentItem;
-        public GameObject pistol;
+        public IHoldable CurrentHoldable;
+
+        [Header("In game weapon prefabs")] public GameObject pistol;
+        public GameObject shotgun;
 
         private InputManager _inputManager;
+
+        private GameObject _currentHoldableGameObject;
 
         private void Awake() {
             _inputManager = Grid.InputManager;
@@ -17,44 +21,58 @@ namespace Player {
         private void Start() {
             SubscribeToInputManagerEvents();
 
-            _inputManager.ONInteractTriggered += EquipPistol;
+            _inputManager.ONWeapon1Triggered += EquipPistol;
+            _inputManager.ONWeapon2Triggered += EquipShotgun;
         }
 
         private void EquipPistol() {
-            var pistolObject = InstantiateAtProperPosition();
-            SwapItemsAndSubscriptions(pistolObject.GetComponent<IHoldable>());
+            EquipHoldable(pistol);
         }
 
-        private GameObject InstantiateAtProperPosition() {
-            var pistolGameObject = Instantiate(pistol, transform);
-            pistolGameObject.transform.localPosition = new Vector3(0, 0, 0);
-            return pistolGameObject;
+        private void EquipShotgun() {
+            EquipHoldable(shotgun);
+        }
+
+        private void EquipHoldable(GameObject item) {
+            UnsubscribeToInputManagerEvents();
+            DestroyCurrentHoldable();
+            _currentHoldableGameObject = InstantiateAtProperPosition(item);
+            SwapItemsAndSubscriptions(_currentHoldableGameObject.GetComponent<IHoldable>());
+        }
+
+        private GameObject InstantiateAtProperPosition(GameObject item) {
+            GameObject newGameObject = Instantiate(item, transform);
+            newGameObject.transform.localPosition = new Vector3(0, 0, 0);
+            return newGameObject;
         }
 
         private void SwapItemsAndSubscriptions(IHoldable holdablePistol) {
-            UnsubscribeToInputManagerEvents();
             SwapCurrentItem(holdablePistol);
             SubscribeToInputManagerEvents();
         }
 
+        private void DestroyCurrentHoldable() {
+            Destroy(_currentHoldableGameObject);
+        }
+
         private void SwapCurrentItem(IHoldable newItem) {
             SetNewCurrentItem(newItem);
-            CurrentItem.Initialize();
+            CurrentHoldable.Initialize();
         }
 
         private void SetNewCurrentItem(IHoldable newItem) {
-            CurrentItem = newItem;
+            CurrentHoldable = newItem;
         }
 
         private void SubscribeToInputManagerEvents() {
-            if (CurrentItem != null) {
-                _inputManager.ONShootTriggered += CurrentItem.OnLeftButtonClick;
+            if (CurrentHoldable != null) {
+                _inputManager.ONShootTriggered += CurrentHoldable.OnLeftButtonClick;
             }
         }
 
         private void UnsubscribeToInputManagerEvents() {
-            if (CurrentItem != null) {
-                _inputManager.ONShootTriggered -= CurrentItem.OnLeftButtonClick;
+            if (CurrentHoldable != null) {
+                _inputManager.ONShootTriggered -= CurrentHoldable.OnLeftButtonClick;
             }
         }
     }

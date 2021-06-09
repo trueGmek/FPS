@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7496550628964483197}
   m_Layer: 0
-  m_Name: SimplePistol
+  m_Name: PistolModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -753,7 +753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65b3b6ef4cfd46f0b0dd214da55b8fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetVector: {x: 0, y: 0, z: 0}
+  offsetVector: {x: 1.14, y: -0.58, z: 1.3}
 --- !u!33 &2404313078110793695
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -59,6 +59,22 @@ namespace Player
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SelectWeapon1"",
+                    ""type"": ""Button"",
+                    ""id"": ""411ef03a-7e25-48b1-94cb-c02165281d43"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SelectWeapon2"",
+                    ""type"": ""Button"",
+                    ""id"": ""7ae940dd-30d9-4e95-b8a0-ee2a25486166"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -160,6 +176,28 @@ namespace Player
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""79fb9e80-a780-44a6-9ddc-01c6969a1250"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a938efc3-4d7c-4687-b85c-646857a65b04"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -173,6 +211,8 @@ namespace Player
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
             m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
             m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+            m_Player_SelectWeapon1 = m_Player.FindAction("SelectWeapon1", throwIfNotFound: true);
+            m_Player_SelectWeapon2 = m_Player.FindAction("SelectWeapon2", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -227,6 +267,8 @@ namespace Player
         private readonly InputAction m_Player_Jump;
         private readonly InputAction m_Player_Shoot;
         private readonly InputAction m_Player_Interact;
+        private readonly InputAction m_Player_SelectWeapon1;
+        private readonly InputAction m_Player_SelectWeapon2;
         public struct PlayerActions
         {
             private @PlayerControls m_Wrapper;
@@ -236,6 +278,8 @@ namespace Player
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
             public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
             public InputAction @Interact => m_Wrapper.m_Player_Interact;
+            public InputAction @SelectWeapon1 => m_Wrapper.m_Player_SelectWeapon1;
+            public InputAction @SelectWeapon2 => m_Wrapper.m_Player_SelectWeapon2;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -260,6 +304,12 @@ namespace Player
                     @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                     @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                     @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                    @SelectWeapon1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon1;
+                    @SelectWeapon1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon1;
+                    @SelectWeapon1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon1;
+                    @SelectWeapon2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon2;
+                    @SelectWeapon2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon2;
+                    @SelectWeapon2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon2;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -279,6 +329,12 @@ namespace Player
                     @Interact.started += instance.OnInteract;
                     @Interact.performed += instance.OnInteract;
                     @Interact.canceled += instance.OnInteract;
+                    @SelectWeapon1.started += instance.OnSelectWeapon1;
+                    @SelectWeapon1.performed += instance.OnSelectWeapon1;
+                    @SelectWeapon1.canceled += instance.OnSelectWeapon1;
+                    @SelectWeapon2.started += instance.OnSelectWeapon2;
+                    @SelectWeapon2.performed += instance.OnSelectWeapon2;
+                    @SelectWeapon2.canceled += instance.OnSelectWeapon2;
                 }
             }
         }
@@ -290,6 +346,8 @@ namespace Player
             void OnJump(InputAction.CallbackContext context);
             void OnShoot(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
+            void OnSelectWeapon1(InputAction.CallbackContext context);
+            void OnSelectWeapon2(InputAction.CallbackContext context);
         }
     }
 }

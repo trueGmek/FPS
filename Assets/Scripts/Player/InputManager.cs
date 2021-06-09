@@ -8,8 +8,11 @@ namespace Player {
 
         public event Action ONShootTriggered;
         public event Action ONJumpTriggered;
-
         public event Action ONInteractTriggered;
+
+        public event Action ONWeapon1Triggered;
+
+        public event Action ONWeapon2Triggered;
 
         private void Awake() {
             _playerControls = new PlayerControls();
@@ -21,6 +24,8 @@ namespace Player {
             _playerControls.Player.Shoot.performed += OnPlayerControlsPlayerShootTriggered;
             _playerControls.Player.Jump.performed += OnPlayerControlsPlayerJumpTriggered;
             _playerControls.Player.Interact.performed += OnPlayerControlsPlayerInteractTriggered;
+            _playerControls.Player.SelectWeapon1.performed += OnPlayerControlsPlayerSelectWeapon1Triggered;
+            _playerControls.Player.SelectWeapon2.performed += OnPlayerControlsPlayerSelectWeapon2Triggered;
         }
 
         private void OnEnable() {
@@ -35,14 +40,6 @@ namespace Player {
             return _playerControls.Player.Move.ReadValue<Vector2>();
         }
 
-        public bool WasJumpTriggered() {
-            return _playerControls.Player.Jump.triggered;
-        }
-
-        public bool WasFireTriggered() {
-            return _playerControls.Player.Shoot.triggered;
-        }
-
         private void OnPlayerControlsPlayerShootTriggered(InputAction.CallbackContext callbackContext) {
             ONShootTriggered?.Invoke();
         }
@@ -53,6 +50,14 @@ namespace Player {
 
         private void OnPlayerControlsPlayerInteractTriggered(InputAction.CallbackContext callbackContext) {
             ONInteractTriggered?.Invoke();
+        }
+
+        private void OnPlayerControlsPlayerSelectWeapon1Triggered(InputAction.CallbackContext callbackContext) {
+            ONWeapon1Triggered?.Invoke();
+        }
+
+        private void OnPlayerControlsPlayerSelectWeapon2Triggered(InputAction.CallbackContext callbackContext) {
+            ONWeapon2Triggered?.Invoke();
         }
     }
 }
