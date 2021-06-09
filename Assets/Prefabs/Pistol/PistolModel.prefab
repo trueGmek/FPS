@@ -754,6 +754,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offsetVector: {x: 1.14, y: -0.58, z: 1.3}
+  range: {fileID: 11400000, guid: d596d2d407b830f44b9de50e65e45304, type: 2}
 --- !u!33 &2404313078110793695
 MeshFilter:
   m_ObjectHideFlags: 0

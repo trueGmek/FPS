@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
+using Utils;
 
 namespace Items {
-    public class CameraPositionFollower : MonoBehaviour {
+    public class WeaponCameraPositionFollower : MonoBehaviour {
         public Vector3 offsetVector;
+        public FloatVariable range;
+
         private Camera _camera;
 
 
@@ -18,7 +21,8 @@ namespace Items {
             _transform.position = cameraTransform.position +
                                   cameraTransform.forward * offsetVector.z +
                                   cameraTransform.right * offsetVector.x + cameraTransform.up * offsetVector.y;
-            _transform.rotation = cameraTransform.rotation;
+            
+            _transform.LookAt(_camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, range.value)));
         }
     }
 }

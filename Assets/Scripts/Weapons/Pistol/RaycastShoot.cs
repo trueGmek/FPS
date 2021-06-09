@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Weapons {
+namespace Weapons.Pistol {
     public class RaycastShoot : MonoBehaviour {
         public float shootDuration;
 
@@ -32,7 +32,7 @@ namespace Weapons {
                 Vector3 middleOfTheScreen = new Vector3(0.5f, 0.5f, 0.5f);
                 Vector3 rayOrigin = _mainCamera.ViewportToWorldPoint(middleOfTheScreen);
 
-                if (Physics.Raycast(rayOrigin, _mainCamera.transform.forward, out var hit, _pistol.weaponRange)) {
+                if (Physics.Raycast(rayOrigin, _mainCamera.transform.forward, out var hit, _pistol.weaponRange.value)) {
                     EvokeOnHitEvents(hit);
                     SetLaserPositionOnHit(hit);
                     return;
@@ -51,7 +51,7 @@ namespace Weapons {
 
         private void SetLaserPositionsOnMiss() {
             _laserLine.SetPosition(0, _pistol.GunEnd.position);
-            _laserLine.SetPosition(1, _mainCamera.transform.forward * _pistol.weaponRange);
+            _laserLine.SetPosition(1, _mainCamera.transform.forward * _pistol.weaponRange.value);
         }
 
         private void SetLaserPositionOnHit(RaycastHit hit) {

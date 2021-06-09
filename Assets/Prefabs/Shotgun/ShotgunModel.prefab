@@ -1330,3 +1330,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offsetVector: {x: 0.36, y: -0.56, z: 0.74}
+  range: {fileID: 11400000, guid: 29cbffbfce476b94a9430b5e0fd3d874, type: 2}

@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Weapons {
+namespace Weapons.Pistol {
     public class RaycastShootViewer : MonoBehaviour {
         public float weaponRange = 50f;
 

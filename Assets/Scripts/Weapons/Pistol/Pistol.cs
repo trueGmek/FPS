@@ -1,14 +1,15 @@
 ﻿using System;
 using Items;
 using UnityEngine;
+using Utils;
 
-namespace Weapons {
+namespace Weapons.Pistol {
     [RequireComponent(typeof(RaycastShoot))]
     public class Pistol : MonoBehaviour, IHoldable {
         public int damage = 1;
 
         public float fireRate = 0.25f;
-        public float weaponRange = 50f;
+        public FloatVariable weaponRange;
         public float hitForce = 100f;
 
         public Vector3 pistolPosition;
