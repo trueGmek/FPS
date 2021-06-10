@@ -11,13 +11,11 @@ namespace Weapons.Pistol {
         public float fireRate = 0.25f;
         public FloatVariable weaponRange;
         public float hitForce = 100f;
-
         public Vector3 pistolPosition;
-
         public GameObject pistolGameObject;
 
         private RaycastShoot _raycastShoot;
-
+        private ParticleSystem _muzzleEffect;
         public Transform GunEnd { get; private set; }
 
         private void Awake() {
@@ -27,6 +25,7 @@ namespace Weapons.Pistol {
         public void Initialize() {
             var pistol = InitializeWithProperPositioning();
             GunEnd = pistol.GetComponentInChildren<GunEnd>().transform;
+            _muzzleEffect = GetComponentInChildren<ParticleSystem>();
         }
 
         private GameObject InitializeWithProperPositioning() {
@@ -37,6 +36,7 @@ namespace Weapons.Pistol {
 
         public void OnLeftButtonClick() {
             _raycastShoot.ShootAction();
+            _muzzleEffect.Play();
         }
 
         public void OnRightButtonClick() {

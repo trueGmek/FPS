@@ -15,6 +15,7 @@ namespace Weapons.Shotgun {
         public GameObject shotgunModel;
 
         private RaycastConeShoot _raycastConeShoot;
+        private ParticleSystem _muzzleFlash;
 
         private void Awake() {
             _raycastConeShoot = GetComponent<RaycastConeShoot>();
@@ -22,10 +23,12 @@ namespace Weapons.Shotgun {
 
         public void Initialize() {
             Instantiate(shotgunModel, transform);
+            _muzzleFlash = GetComponentInChildren<ParticleSystem>();
         }
 
         public void OnLeftButtonClick() {
             _raycastConeShoot.ShootAction();
+            _muzzleFlash.Play();
         }
 
 
