@@ -11,14 +11,16 @@ namespace Weapons.Shotgun {
         public float range = 10f;
         public float hitForce = 200f;
         public float shotSpreadRadius = 2;
-
         public GameObject shotgunModel;
 
+        private float _nextFireTime;
         private RaycastConeShoot _raycastConeShoot;
         private ParticleSystem _muzzleFlash;
+        private AudioSource _gunshot;
 
         private void Awake() {
             _raycastConeShoot = GetComponent<RaycastConeShoot>();
+            _gunshot = GetComponent<AudioSource>();
         }
 
         public void Initialize() {
@@ -27,8 +29,12 @@ namespace Weapons.Shotgun {
         }
 
         public void OnLeftButtonClick() {
+            if (!(Time.time > _nextFireTime)) return;
+            _nextFireTime = Time.time + fireRate;
+
             _raycastConeShoot.ShootAction();
             _muzzleFlash.Play();
+            _gunshot.Play();
         }
 
 

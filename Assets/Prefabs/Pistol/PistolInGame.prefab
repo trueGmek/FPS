@@ -61,7 +61,7 @@ MonoBehaviour:
   fireRate: 0.25
   weaponRange: {fileID: 11400000, guid: d596d2d407b830f44b9de50e65e45304, type: 2}
   hitForce: 500
-  pistolPosition: {x: 0.3439999, y: -0.268, z: 0.7809999}
+  pistolPosition: {x: 4.36, y: 2.46, z: 3.18}
   pistolGameObject: {fileID: 3604149481406280879, guid: 66100ca8a672c454aa5d299805c1c881, type: 3}
 --- !u!82 &6038880377875220096
 AudioSource:

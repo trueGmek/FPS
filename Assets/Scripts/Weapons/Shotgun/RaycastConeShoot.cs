@@ -1,36 +1,17 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Weapons.Shotgun {
     public class RaycastConeShoot : MonoBehaviour {
-        public float shootDuration;
-
-        private float _nextFireTime;
-        private WaitForSeconds _shootDuration;
-
         private Camera _camera;
-        private GunEnd _gunEnd;
         private Shotgun _shotgun;
-        private AudioSource _shotgunAudio;
 
         private void Awake() {
             _camera = Camera.main;
             _shotgun = GetComponent<Shotgun>();
-            _shotgunAudio = GetComponent<AudioSource>();
         }
 
-        private void Start() {
-            _shootDuration = new WaitForSeconds(shootDuration);
-
-            _gunEnd = GetComponentInChildren<GunEnd>();
-        }
 
         public void ShootAction() {
-            if (!(Time.time > _nextFireTime)) return;
-            _nextFireTime = Time.time + _shotgun.fireRate;
-
-            StartCoroutine(ShootEffects());
-
             Vector3 centerOfCircleInsideCone =
                 _camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, _shotgun.range));
             var rayOrigin = _camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.1f));
@@ -38,11 +19,6 @@ namespace Weapons.Shotgun {
             for (int i = 0; i < _shotgun.numberOfProjectiles; i++) {
                 ShootProjectile(centerOfCircleInsideCone, rayOrigin);
             }
-        }
-
-        private IEnumerator ShootEffects() {
-            _shotgunAudio.Play();
-            yield return _shootDuration;
         }
 
         private void ShootProjectile(Vector3 centerOfCircleInsideCone, Vector3 rayOrigin) {

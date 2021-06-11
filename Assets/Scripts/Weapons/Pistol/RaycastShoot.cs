@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Weapons.Pistol {
     public class RaycastShoot : MonoBehaviour {
-        private float _nextFireTime;
 
         private Camera _mainCamera;
         private Pistol _pistol;
@@ -14,9 +13,6 @@ namespace Weapons.Pistol {
         }
 
         public void ShootAction() {
-            if (!(Time.time > _nextFireTime)) return;
-            _nextFireTime = Time.time + _pistol.fireRate;
-
             Vector3 middleOfTheScreen = new Vector3(0.5f, 0.5f, 0.5f);
             Vector3 rayOrigin = _mainCamera.ViewportToWorldPoint(middleOfTheScreen);
 
