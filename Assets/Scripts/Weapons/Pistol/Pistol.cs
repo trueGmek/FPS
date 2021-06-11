@@ -16,10 +16,12 @@ namespace Weapons.Pistol {
 
         private RaycastShoot _raycastShoot;
         private ParticleSystem _muzzleEffect;
+        private AudioSource _gunAudio;
         public Transform GunEnd { get; private set; }
 
         private void Awake() {
             _raycastShoot = GetComponent<RaycastShoot>();
+            _gunAudio = GetComponent<AudioSource>();
         }
 
         public void Initialize() {
@@ -37,6 +39,7 @@ namespace Weapons.Pistol {
         public void OnLeftButtonClick() {
             _raycastShoot.ShootAction();
             _muzzleEffect.Play();
+            _gunAudio.Play();
         }
 
         public void OnRightButtonClick() {
