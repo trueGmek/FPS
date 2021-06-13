@@ -75,6 +75,14 @@ namespace Player
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SelectWeapon3"",
+                    ""type"": ""Button"",
+                    ""id"": ""76d49ad3-6415-4036-bba8-8089e0a5035e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -198,6 +206,17 @@ namespace Player
                     ""action"": ""SelectWeapon2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""042d3c54-87a9-4b5d-b59e-ede85bfef17a"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -213,6 +232,7 @@ namespace Player
             m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
             m_Player_SelectWeapon1 = m_Player.FindAction("SelectWeapon1", throwIfNotFound: true);
             m_Player_SelectWeapon2 = m_Player.FindAction("SelectWeapon2", throwIfNotFound: true);
+            m_Player_SelectWeapon3 = m_Player.FindAction("SelectWeapon3", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -269,6 +289,7 @@ namespace Player
         private readonly InputAction m_Player_Interact;
         private readonly InputAction m_Player_SelectWeapon1;
         private readonly InputAction m_Player_SelectWeapon2;
+        private readonly InputAction m_Player_SelectWeapon3;
         public struct PlayerActions
         {
             private @PlayerControls m_Wrapper;
@@ -280,6 +301,7 @@ namespace Player
             public InputAction @Interact => m_Wrapper.m_Player_Interact;
             public InputAction @SelectWeapon1 => m_Wrapper.m_Player_SelectWeapon1;
             public InputAction @SelectWeapon2 => m_Wrapper.m_Player_SelectWeapon2;
+            public InputAction @SelectWeapon3 => m_Wrapper.m_Player_SelectWeapon3;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -310,6 +332,9 @@ namespace Player
                     @SelectWeapon2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon2;
                     @SelectWeapon2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon2;
                     @SelectWeapon2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon2;
+                    @SelectWeapon3.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon3;
+                    @SelectWeapon3.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon3;
+                    @SelectWeapon3.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeapon3;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -335,6 +360,9 @@ namespace Player
                     @SelectWeapon2.started += instance.OnSelectWeapon2;
                     @SelectWeapon2.performed += instance.OnSelectWeapon2;
                     @SelectWeapon2.canceled += instance.OnSelectWeapon2;
+                    @SelectWeapon3.started += instance.OnSelectWeapon3;
+                    @SelectWeapon3.performed += instance.OnSelectWeapon3;
+                    @SelectWeapon3.canceled += instance.OnSelectWeapon3;
                 }
             }
         }
@@ -348,6 +376,7 @@ namespace Player
             void OnInteract(InputAction.CallbackContext context);
             void OnSelectWeapon1(InputAction.CallbackContext context);
             void OnSelectWeapon2(InputAction.CallbackContext context);
+            void OnSelectWeapon3(InputAction.CallbackContext context);
         }
     }
 }

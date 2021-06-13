@@ -1,14 +1,14 @@
 ﻿using Items;
 using UnityEngine;
-using Weapons;
 using Grid = Systems.Grid;
 
 namespace Player {
     public class HoldableManager : MonoBehaviour {
-        public IHoldable CurrentHoldable;
+        private IHoldable _currentHoldable;
 
         [Header("In game weapon prefabs")] public GameObject pistol;
         public GameObject shotgun;
+        public GameObject assaultRifle;
 
         private InputManager _inputManager;
 
@@ -23,6 +23,7 @@ namespace Player {
 
             _inputManager.ONWeapon1Triggered += EquipPistol;
             _inputManager.ONWeapon2Triggered += EquipShotgun;
+            _inputManager.ONWeapon3Triggered += EquipAssaultRiffle;
         }
 
         private void EquipPistol() {
@@ -31,6 +32,10 @@ namespace Player {
 
         private void EquipShotgun() {
             EquipHoldable(shotgun);
+        }
+
+        private void EquipAssaultRiffle() {
+            EquipHoldable(assaultRifle);
         }
 
         private void EquipHoldable(GameObject item) {
@@ -57,22 +62,24 @@ namespace Player {
 
         private void SwapCurrentItem(IHoldable newItem) {
             SetNewCurrentItem(newItem);
-            CurrentHoldable.Initialize();
+            _currentHoldable.Initialize();
         }
 
         private void SetNewCurrentItem(IHoldable newItem) {
-            CurrentHoldable = newItem;
+            _currentHoldable = newItem;
         }
 
         private void SubscribeToInputManagerEvents() {
-            if (CurrentHoldable != null) {
-                _inputManager.ONShootTriggered += CurrentHoldable.OnLeftButtonClick;
+            if (_currentHoldable != null) {
+                _inputManager.ONShootStarted += _currentHoldable.OnLeftButtonPressed;
+                _inputManager.ONShootCanceled += _currentHoldable.OnLeftButtonReleased;
             }
         }
 
         private void UnsubscribeToInputManagerEvents() {
-            if (CurrentHoldable != null) {
-                _inputManager.ONShootTriggered -= CurrentHoldable.OnLeftButtonClick;
+            if (_currentHoldable != null) {
+                _inputManager.ONShootStarted -= _currentHoldable.OnLeftButtonPressed;
+                _inputManager.ONShootCanceled -= _currentHoldable.OnLeftButtonReleased;
             }
         }
     }

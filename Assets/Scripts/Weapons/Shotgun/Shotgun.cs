@@ -28,7 +28,7 @@ namespace Weapons.Shotgun {
             _muzzleFlash = GetComponentInChildren<ParticleSystem>();
         }
 
-        public void OnLeftButtonClick() {
+        public void OnLeftButtonPressed() {
             if (!(Time.time > _nextFireTime)) return;
             _nextFireTime = Time.time + fireRate;
 
@@ -37,8 +37,14 @@ namespace Weapons.Shotgun {
             _gunshot.Play();
         }
 
+        public void OnLeftButtonReleased() {
+        }
 
-        public void OnRightButtonClick() {
+        public void OnRightButtonPressed() {
+            throw new NotImplementedException();
+        }
+
+        public void OnRightButtonReleased() {
             throw new NotImplementedException();
         }
     }

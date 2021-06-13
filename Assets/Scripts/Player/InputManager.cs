@@ -6,26 +6,29 @@ namespace Player {
     public class InputManager : MonoBehaviour {
         private PlayerControls _playerControls;
 
+        public event Action ONShootStarted;
         public event Action ONShootTriggered;
+        public event Action ONShootCanceled;
         public event Action ONJumpTriggered;
         public event Action ONInteractTriggered;
-
         public event Action ONWeapon1Triggered;
-
         public event Action ONWeapon2Triggered;
+        public event Action ONWeapon3Triggered;
 
         private void Awake() {
             _playerControls = new PlayerControls();
-
             SetEventCallbacks();
         }
 
         private void SetEventCallbacks() {
             _playerControls.Player.Shoot.performed += OnPlayerControlsPlayerShootTriggered;
+            _playerControls.Player.Shoot.started += OnPlayerControlsPlayerShootStarted;
+            _playerControls.Player.Shoot.canceled += OnPlayerControlsPlayerShootCanceled;
             _playerControls.Player.Jump.performed += OnPlayerControlsPlayerJumpTriggered;
             _playerControls.Player.Interact.performed += OnPlayerControlsPlayerInteractTriggered;
             _playerControls.Player.SelectWeapon1.performed += OnPlayerControlsPlayerSelectWeapon1Triggered;
             _playerControls.Player.SelectWeapon2.performed += OnPlayerControlsPlayerSelectWeapon2Triggered;
+            _playerControls.Player.SelectWeapon3.performed += OnPlayerControlsPlayerSelectWeapon3Triggered;
         }
 
         private void OnEnable() {
@@ -58,6 +61,18 @@ namespace Player {
 
         private void OnPlayerControlsPlayerSelectWeapon2Triggered(InputAction.CallbackContext callbackContext) {
             ONWeapon2Triggered?.Invoke();
+        }
+
+        private void OnPlayerControlsPlayerSelectWeapon3Triggered(InputAction.CallbackContext callbackContext) {
+            ONWeapon3Triggered?.Invoke();
+        }
+
+        private void OnPlayerControlsPlayerShootStarted(InputAction.CallbackContext callbackContext) {
+            ONShootStarted?.Invoke();
+        }
+
+        private void OnPlayerControlsPlayerShootCanceled(InputAction.CallbackContext callbackContext) {
+            ONShootCanceled?.Invoke();
         }
     }
 }

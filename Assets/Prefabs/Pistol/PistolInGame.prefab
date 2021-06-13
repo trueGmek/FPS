@@ -57,11 +57,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d0d2b2acd844c448ae3e492cd489632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
-  fireRate: 0.25
+  damage: 2
+  fireRate: 0.5
+  hitForce: 1000
   weaponRange: {fileID: 11400000, guid: d596d2d407b830f44b9de50e65e45304, type: 2}
-  hitForce: 500
-  pistolPosition: {x: 4.36, y: 2.46, z: 3.18}
   pistolGameObject: {fileID: 3604149481406280879, guid: 66100ca8a672c454aa5d299805c1c881, type: 3}
 --- !u!82 &6038880377875220096
 AudioSource:
@@ -73,9 +72,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 9c0cccb175102ae4f9487ba55c0e82c4, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 097756122c2e453498fc14ab82d8a021, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.75
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0

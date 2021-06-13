@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Weapons.Pistol {
     public class RaycastShoot : MonoBehaviour {
-
         private Camera _mainCamera;
         private Pistol _pistol;
 

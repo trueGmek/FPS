@@ -27,7 +27,7 @@ namespace Weapons.Pistol {
             _muzzleEffect = GetComponentInChildren<ParticleSystem>();
         }
 
-        public void OnLeftButtonClick() {
+        public void OnLeftButtonPressed() {
             if (!(Time.time > _nextFireTime)) return;
             _nextFireTime = Time.time + fireRate;
 
@@ -36,7 +36,14 @@ namespace Weapons.Pistol {
             _gunAudio.Play();
         }
 
-        public void OnRightButtonClick() {
+        public void OnLeftButtonReleased() {
+        }
+
+        public void OnRightButtonPressed() {
+            throw new NotImplementedException();
+        }
+
+        public void OnRightButtonReleased() {
             throw new NotImplementedException();
         }
     }
