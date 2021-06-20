@@ -46,10 +46,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  numberOfProjectiles: 5
+  numberOfProjectiles: 10
   fireRate: 0.3
   range: 10
-  hitForce: 2000
+  hitForce: 1000
   shotSpreadRadius: 3
   shotgunModel: {fileID: 3434598691114456020, guid: a01f00d7f4a3ff5449ab4720e8368089, type: 3}
 --- !u!114 &2056804587494248325

@@ -11,6 +11,8 @@ namespace Enemies {
 
         private float _currentHealth;
 
+        public float CurrentHealth => _currentHealth;
+
         private void Awake() {
             _shootable = GetComponent<Shootable>();
             _rigidbody = GetComponent<Rigidbody>();

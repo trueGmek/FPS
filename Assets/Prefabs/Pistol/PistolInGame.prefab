@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d0d2b2acd844c448ae3e492cd489632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
+  damage: 3
   fireRate: 0.5
   hitForce: 1000
   weaponRange: {fileID: 11400000, guid: d596d2d407b830f44b9de50e65e45304, type: 2}
