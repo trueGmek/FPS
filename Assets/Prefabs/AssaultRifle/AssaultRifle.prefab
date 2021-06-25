@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -4176779863562523807}
   - component: {fileID: 5209273349437056853}
   m_Layer: 0
-  m_Name: AssaultRifleInGame
+  m_Name: AssaultRifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +49,8 @@ MonoBehaviour:
   fireRate: 0.1
   range: {fileID: 11400000, guid: a6072e3498b5a11409716b3716b0ad7c, type: 2}
   hitForce: 500
-  damage: 1
+  damage: 2
+  ammunition: {fileID: 11400000, guid: 2e04c281310e6904782e136dd89e28da, type: 2}
 --- !u!114 &-4176779863562523807
 MonoBehaviour:
   m_ObjectHideFlags: 0

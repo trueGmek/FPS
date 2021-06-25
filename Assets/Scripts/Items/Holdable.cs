@@ -6,5 +6,7 @@
 
         void OnRightButtonPressed();
         void OnRightButtonReleased();
+
+        void OnReloadTriggered();
     }
 }

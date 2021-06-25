@@ -38,6 +38,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "1948626b-c561-47ec-90ed-70162173bf7e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Interact",
                     "type": "Button",
                     "id": "6283da18-7ec7-4041-9647-4173411af57c",
@@ -200,6 +208,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SelectWeapon3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "baf87537-f4e0-44f0-be05-283b6aaa88e0",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

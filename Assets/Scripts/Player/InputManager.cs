@@ -11,6 +11,7 @@ namespace Player {
         public event Action ONShootCanceled;
         public event Action ONJumpTriggered;
         public event Action ONInteractTriggered;
+        public event Action ONReloadTriggered;
         public event Action ONWeapon1Triggered;
         public event Action ONWeapon2Triggered;
         public event Action ONWeapon3Triggered;
@@ -26,6 +27,7 @@ namespace Player {
             _playerControls.Player.Shoot.canceled += OnPlayerControlsPlayerShootCanceled;
             _playerControls.Player.Jump.performed += OnPlayerControlsPlayerJumpTriggered;
             _playerControls.Player.Interact.performed += OnPlayerControlsPlayerInteractTriggered;
+            _playerControls.Player.Reload.performed += OnPlayerControlsPlayerReloadTriggered;
             _playerControls.Player.SelectWeapon1.performed += OnPlayerControlsPlayerSelectWeapon1Triggered;
             _playerControls.Player.SelectWeapon2.performed += OnPlayerControlsPlayerSelectWeapon2Triggered;
             _playerControls.Player.SelectWeapon3.performed += OnPlayerControlsPlayerSelectWeapon3Triggered;
@@ -53,6 +55,10 @@ namespace Player {
 
         private void OnPlayerControlsPlayerInteractTriggered(InputAction.CallbackContext callbackContext) {
             ONInteractTriggered?.Invoke();
+        }
+
+        private void OnPlayerControlsPlayerReloadTriggered(InputAction.CallbackContext callbackContext) {
+            ONReloadTriggered?.Invoke();
         }
 
         private void OnPlayerControlsPlayerSelectWeapon1Triggered(InputAction.CallbackContext callbackContext) {

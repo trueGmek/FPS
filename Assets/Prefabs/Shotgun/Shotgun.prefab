@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7663968216765505866
+--- !u!1 &3604043351825675294
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2996164091681673377}
-  - component: {fileID: 4614716760277554763}
-  - component: {fileID: 2225166420153080052}
-  - component: {fileID: 6038880377875220096}
+  - component: {fileID: 8651735677841839098}
+  - component: {fileID: 1443307177322032746}
+  - component: {fileID: 2056804587494248325}
+  - component: {fileID: 5726226224832251137}
   m_Layer: 0
-  m_Name: PistolInGame
+  m_Name: Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2996164091681673377
+--- !u!4 &8651735677841839098
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7663968216765505866}
+  m_GameObject: {fileID: 3604043351825675294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,48 +33,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4614716760277554763
+--- !u!114 &1443307177322032746
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7663968216765505866}
+  m_GameObject: {fileID: 3604043351825675294}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 392a6e250e3c4854931fe819b5cd2764, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a18db3616ba44f58790243f22afa3ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2225166420153080052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7663968216765505866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d0d2b2acd844c448ae3e492cd489632, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 3
-  fireRate: 0.5
+  damage: 5
+  numberOfProjectiles: 10
+  fireRate: 0.3
+  range: 10
   hitForce: 1000
-  weaponRange: {fileID: 11400000, guid: d596d2d407b830f44b9de50e65e45304, type: 2}
-  pistolGameObject: {fileID: 3604149481406280879, guid: 66100ca8a672c454aa5d299805c1c881, type: 3}
---- !u!82 &6038880377875220096
+  shotSpreadRadius: 3
+  shotgunModel: {fileID: 3434598691114456020, guid: a01f00d7f4a3ff5449ab4720e8368089, type: 3}
+  ammunition: {fileID: 11400000, guid: 908514c004a35ed44b14ec975a9258ee, type: 2}
+--- !u!114 &2056804587494248325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3604043351825675294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad9086691114dcf8dde628aae00be32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!82 &5726226224832251137
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7663968216765505866}
+  m_GameObject: {fileID: 3604043351825675294}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 097756122c2e453498fc14ab82d8a021, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8b3ac8554f12eaa42a5be086c8e60590, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 0.036
   m_Pitch: 1
   Loop: 0
   Mute: 0
