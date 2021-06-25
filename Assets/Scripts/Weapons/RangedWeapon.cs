@@ -9,7 +9,6 @@ namespace Weapons {
 
         public void SetAmmunitionDisplay(AmmunitionDisplay ammunitionDisplay, Ammunition ammunition) {
             _ammunitionDisplay = ammunitionDisplay;
-            Grid.InputManager.ONReloadTriggered += ammunition.Reload;
             _ammunitionDisplay.Ammunition = ammunition;
         }
 

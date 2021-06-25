@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
+using Systems.Audio;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Utils;
+using Grid = Systems.Grid;
 
 namespace Weapons.Pistol {
     [RequireComponent(typeof(RaycastShoot))]
@@ -13,10 +16,12 @@ namespace Weapons.Pistol {
         public Ammunition ammunition;
         public GameObject pistolGameObject;
 
+
         private float _nextFireTime;
+        private bool _isReloadInProgress;
+
         private RaycastShoot _raycastShoot;
         private ParticleSystem _muzzleEffect;
-        private AudioSource _gunAudio;
 
         public override Ammunition Ammunition => ammunition;
 
@@ -26,7 +31,6 @@ namespace Weapons.Pistol {
 
         private void Awake() {
             _raycastShoot = GetComponent<RaycastShoot>();
-            _gunAudio = GetComponent<AudioSource>();
         }
 
         public override void Initialize() {
@@ -35,22 +39,39 @@ namespace Weapons.Pistol {
         }
 
         public override void OnLeftButtonPressed() {
-            if (!ammunition.HasAmmunitionInMagazine() || !(Time.time > _nextFireTime)) return;
-            _nextFireTime = Time.time + fireRate;
-            Shoot();
+            if (CanShoot()) {
+                _nextFireTime = Time.time + fireRate;
+                Shoot();
+            }
+        }
+
+        private bool CanShoot() {
+            return ammunition.HasAmmunitionInMagazine() && Time.time > _nextFireTime && !_isReloadInProgress;
         }
 
         private void Shoot() {
             _raycastShoot.ShootAction();
             _muzzleEffect.Play();
-            _gunAudio.Play();
+            Grid.AudioManager.Play(SoundNameProvider.PistolGunshot);
             ammunition.Shoot();
         }
 
         public override void OnReloadTriggered() {
-            if (ammunition.CanReload()) {
-                ammunition.Reload();
+            if (CanReload()) {
+                StartCoroutine(ReloadAction());
             }
+        }
+
+        private bool CanReload() {
+            return ammunition.CanReload() && !_isReloadInProgress;
+        }
+
+        private IEnumerator ReloadAction() {
+            _isReloadInProgress = true;
+            AudioSource reloadAudioSource = Grid.AudioManager.Play(SoundNameProvider.PistolReload);
+            yield return new WaitWhile(() => reloadAudioSource.isPlaying);
+            ammunition.Reload();
+            _isReloadInProgress = false;
         }
 
         public override void OnLeftButtonReleased() {

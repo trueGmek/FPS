@@ -1,4 +1,5 @@
-﻿using Player;
+﻿using Systems.Audio;
+using Player;
 using UnityEngine;
 
 namespace Systems {
@@ -35,12 +36,14 @@ namespace Systems {
     */
 
     static class Grid {
-        public static InputManager InputManager;
+        public static readonly InputManager InputManager;
+        public static readonly AudioManager AudioManager;
 
         static Grid() {
             GameObject g = SafeFind("__app");
 
             InputManager = (InputManager) SafeComponent(g, "InputManager");
+            AudioManager = (AudioManager) SafeComponent(g, "AudioManager");
         }
 
         private static GameObject SafeFind(string s) {

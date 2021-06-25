@@ -239,6 +239,7 @@ GameObject:
   - component: {fileID: 1812919378}
   - component: {fileID: 1812919377}
   - component: {fileID: 1812919376}
+  - component: {fileID: 1812919379}
   m_Layer: 0
   m_Name: __app
   m_TagString: Untagged
@@ -284,3 +285,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1812919379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812919375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f9bca1bfdb34594b519c4050403c36e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: PISTOL_GUNSHOT
+    audioClip: {fileID: 8300000, guid: 097756122c2e453498fc14ab82d8a021, type: 3}
+    volume: 0.2
+    pitch: 1
+  - name: PISTOL_RELOAD
+    audioClip: {fileID: 8300000, guid: 069c56b437d30114e953c759a2d54c97, type: 3}
+    volume: 1
+    pitch: 1
+  - name: SHOTGUN_GUNSHOT
+    audioClip: {fileID: 8300000, guid: 8b3ac8554f12eaa42a5be086c8e60590, type: 3}
+    volume: 0.1
+    pitch: 1
+  - name: SHOTGUN_RELOAD
+    audioClip: {fileID: 8300000, guid: f9877a06b9d57e841a7a33479b5d501f, type: 3}
+    volume: 1
+    pitch: 1
+  - name: ASSAULT_RIFLE_GUNSHOT
+    audioClip: {fileID: 8300000, guid: e0f848228064236478ad35510bccc7de, type: 3}
+    volume: 0.1
+    pitch: 1
+  - name: ASSAULT_RIFLE_RELOAD
+    audioClip: {fileID: 8300000, guid: 9bd6adf063e630e4695792ddc9b09c21, type: 3}
+    volume: 1
+    pitch: 1
