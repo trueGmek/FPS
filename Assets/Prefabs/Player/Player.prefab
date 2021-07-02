@@ -576,6 +576,7 @@ MonoBehaviour:
   pistol: {fileID: 7663968216765505866, guid: 427e535f8c2ca154699ef7ed50e60c66, type: 3}
   shotgun: {fileID: 3604043351825675294, guid: fcaf8df13edf3144f8aaec15c15ae574, type: 3}
   assaultRifle: {fileID: 1759418234535779726, guid: 191cb61c57b42b3459faf9b5194fa060, type: 3}
+  ammunitionDisplay: {fileID: 0}
 --- !u!1 &8504831534517759782
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,7 +646,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpHeight: 1
-  playerSpeed: 3
+  playerSpeed: 4
   rayCastLength: 0.04
 --- !u!1 &8504831534724420550
 GameObject:
