@@ -15,8 +15,9 @@ GameObject:
   - component: {fileID: 454098782892116319}
   - component: {fileID: -3985572914773443600}
   - component: {fileID: 6602696251745185870}
-  - component: {fileID: -8469310966050912963}
   - component: {fileID: 8705026090002041134}
+  - component: {fileID: 1180215627417933422}
+  - component: {fileID: 5415305391025631699}
   m_Layer: 0
   m_Name: Target Box
   m_TagString: Untagged
@@ -349,7 +350,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialHealth: {fileID: 11400000, guid: 197196693d62b7e418dd10237728306b, type: 2}
---- !u!114 &-8469310966050912963
+--- !u!33 &8705026090002041134
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219793091781943995}
+  m_Mesh: {fileID: 0}
+--- !u!114 &1180215627417933422
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -361,11 +370,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 414678f51b994130a8220875d4f614f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!33 &8705026090002041134
-MeshFilter:
+--- !u!208 &5415305391025631699
+NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 219793091781943995}
-  m_Mesh: {fileID: 0}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.5, y: 0.5, z: -0.5}
+  m_TimeToStationary: 0.5
